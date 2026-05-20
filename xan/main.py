@@ -1,8 +1,5 @@
 import fire
-
-
-def xan_command(name: str):
-    print(f"Hello {name}!")
+from .xan_command import xan_command
 
 
 def main():

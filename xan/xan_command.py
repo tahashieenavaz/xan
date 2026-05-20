@@ -22,8 +22,6 @@ def handle_directory(directory_relative_address: str):
         if path_instance.name == "__init__.py":
             continue
 
-        print(path_instance.stem)
-
         if path_instance.is_file() and path_instance.suffix == ".py":
             text = path_instance.read_text()
             tree = ast.parse(text)

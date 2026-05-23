@@ -44,7 +44,3 @@ def handle_directory(directory_relative_address: str):
 
         for filename, class_name in classes:
             fh.write(f"from .{filename} import {class_name}\n")
-
-
-def xan_command(start_directory: str = "."):
-    handle_directory(start_directory)

@@ -63,4 +63,4 @@ class XanInitCommand:
             toml_data = tomllib.loads(parent_toml_file.read_text())
             version = toml_data["project"]["version"]
             with open(root / "__init__.py", "a") as handler:
-                handler.write(f'\n\n__version__ = "{version}"')
+                handler.write(f'\n__version__ = "{version}"')

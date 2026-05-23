@@ -49,12 +49,13 @@ class XanInitCommand:
                         ]
                     )
 
-        with open(root / "__init__.py", "w+") as handler:
-            for file, name in function_names:
-                handler.write(f"from .{file} import {name}\n")
+        if len(function_names) + len(class_names) > 0:
+            with open(root / "__init__.py", "w+") as handler:
+                for file, name in function_names:
+                    handler.write(f"from .{file} import {name}\n")
 
-            for file, name in class_names:
-                handler.write(f"from .{file} import {name}\n")
+                for file, name in class_names:
+                    handler.write(f"from .{file} import {name}\n")
 
         parent_toml_file = root.parent / "pyproject.toml"
         current_toml_file = root / "pyproject.toml"

@@ -28,6 +28,7 @@ class XanInitCommand:
         for file in files:
             if os.path.isdir(file):
                 self.init(file)
+                continue
 
             path_instance = Path(file)
 

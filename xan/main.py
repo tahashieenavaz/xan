@@ -1,6 +1,6 @@
 import fire
-from .xan_command import xan_command
+from .Xan import Xan
 
 
 def main():
-    fire.Fire(xan_command)
+    fire.Fire(Xan)

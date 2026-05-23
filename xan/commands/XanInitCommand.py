@@ -5,11 +5,22 @@ from pathlib import Path
 
 
 class XanInitCommand:
-    def init(self, directory_relative_address: str = "."):
-        directory_address = directory_relative_address.strip("/")
+    def __init__(self):
+        super().__init__()
+
+    def __is_main_init(self, path) -> bool:
+        return (path.parent / "pyproject.toml").exists()
+
+    def init(self, root: str = "."):
+        directory_address = root.strip("/")
         init_file_address = directory_address + "/__init__.py"
-        file_pattern = directory_address + "/*"
-        files = glob.glob(file_pattern)
+        init_file_path = Path(init_file_address)
+        files_pattern = directory_address + "/*"
+        files = glob.glob(files_pattern)
+
+        is_main_init = False
+        if self.__is_main_init(init_file_path):
+            is_main_init = True
 
         functions = []
         classes = []
@@ -46,10 +57,14 @@ class XanInitCommand:
             for filename, class_name in classes:
                 fh.write(f"from .{filename} import {class_name}\n")
 
-            fh.write("__all__ = [\n")
+            print((init_file_path.parent / "pyproject.toml").exists())
+            if is_main_init:
+                fh.write("\n\nversion\n\n")
+
+            fh.write("\n__all__ = [\n")
             for _, class_name in classes:
-                fh.write(f'"{class_name}"')
+                fh.write(f'\t"{class_name}",\n')
 
             for _, function in functions:
-                fh.write(f'"{function}"')
+                fh.write(f'\t"{function}",\n')
             fh.write("]")
